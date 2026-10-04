@@ -1,0 +1,1406 @@
+/* ==================================================
+   PARAGON // STRIKE DIVISION
+   BASE
+================================================== */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  position: relative;
+  background: #080a0b;
+  color: #e8eceb;
+  font-family: Arial, sans-serif;
+  overflow-x: hidden;
+}
+
+
+/* ==================================================
+   LOGO DE FONDO
+================================================== */
+
+body::before {
+  content: "";
+
+  position: fixed;
+  inset: 0;
+
+  z-index: -1;
+  pointer-events: none;
+
+  background:
+    linear-gradient(
+      rgba(8, 10, 11, .88),
+      rgba(8, 10, 11, .88)
+    ),
+    url("https://scpfundacion21-sys.github.io/logo/logo.jpeg");
+
+  background-size: 1000px;
+  background-position: center;
+  background-repeat: no-repeat;
+
+  opacity: 1;
+}
+
+
+/* ==================================================
+   INTRO
+================================================== */
+
+.intro {
+  position: fixed;
+  inset: 0;
+
+  z-index: 9999;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background: #030506;
+
+  overflow: hidden;
+}
+
+.noise,
+.scanlines,
+.intro-grid {
+  position: absolute;
+  inset: 0;
+
+  pointer-events: none;
+}
+
+.noise {
+  opacity: .08;
+
+  background-image:
+    url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.8'/%3E%3C/svg%3E");
+}
+
+.scanlines {
+  background:
+    repeating-linear-gradient(
+      to bottom,
+      transparent 0,
+      transparent 3px,
+      rgba(255,255,255,.025) 4px
+    );
+}
+
+.intro-grid {
+  opacity: .08;
+
+  background-image:
+    linear-gradient(
+      rgba(255,255,255,.08) 1px,
+      transparent 1px
+    ),
+    linear-gradient(
+      90deg,
+      rgba(255,255,255,.08) 1px,
+      transparent 1px
+    );
+
+  background-size: 50px 50px;
+}
+
+.intro-content {
+  position: relative;
+  z-index: 2;
+
+  width: min(800px, 90%);
+
+  text-align: center;
+}
+
+.boot {
+  margin-bottom: 20px;
+
+  font-family: "Orbitron", sans-serif;
+  font-size: 13px;
+  letter-spacing: 4px;
+
+  color: #8c9698;
+}
+
+.classified {
+  margin-bottom: 15px;
+
+  font-family: "Orbitron", sans-serif;
+  font-size: 11px;
+  letter-spacing: 5px;
+
+  color: #687174;
+}
+
+.intro-title {
+  font-family: "Orbitron", sans-serif;
+  font-size: clamp(60px, 10vw, 130px);
+  font-weight: 900;
+
+  letter-spacing: 15px;
+
+  color: #e8eceb;
+}
+
+.intro-sub {
+  margin-top: -10px;
+
+  font-family: "Orbitron", sans-serif;
+  font-size: clamp(16px, 3vw, 28px);
+
+  letter-spacing: 10px;
+
+  color: #929a9c;
+}
+
+.status {
+  margin-top: 45px;
+
+  font-family: "Orbitron", sans-serif;
+  font-size: 12px;
+
+  letter-spacing: 3px;
+
+  color: #788184;
+}
+
+.progress {
+  width: 100%;
+  height: 2px;
+
+  margin-top: 18px;
+
+  background: #202526;
+}
+
+.progress span {
+  display: block;
+
+  width: 0;
+  height: 100%;
+
+  background: #e8eceb;
+
+  transition: width .05s linear;
+}
+
+#skip {
+  display: none;
+
+  margin-top: 30px;
+
+  padding: 13px 35px;
+
+  border: 1px solid #687174;
+
+  background: transparent;
+
+  color: #e8eceb;
+
+  font-family: "Orbitron", sans-serif;
+  font-size: 12px;
+
+  letter-spacing: 3px;
+
+  cursor: pointer;
+
+  transition: .3s;
+}
+
+#skip:hover {
+  background: #e8eceb;
+  color: #080a0b;
+}
+
+
+/* ==================================================
+   SITIO PRINCIPAL
+================================================== */
+
+.site {
+  min-height: 100vh;
+  opacity: 0;
+
+  transition: opacity .8s ease;
+}
+
+.site.show {
+  opacity: 1;
+}
+
+
+/* ==================================================
+   HEADER
+================================================== */
+
+header {
+  position: sticky;
+  top: 0;
+
+  z-index: 100;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  min-height: 75px;
+
+  padding: 0 5%;
+
+  border-bottom: 1px solid rgba(255,255,255,.08);
+
+  background: rgba(5,7,8,.88);
+
+  backdrop-filter: blur(12px);
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+
+  gap: 12px;
+}
+
+.brand-mark {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 40px;
+  height: 40px;
+
+  border: 1px solid #596163;
+
+  font-family: "Orbitron", sans-serif;
+  font-weight: 700;
+}
+
+.brand strong,
+.brand small {
+  display: block;
+
+  font-family: "Orbitron", sans-serif;
+}
+
+.brand strong {
+  font-size: 14px;
+  letter-spacing: 3px;
+}
+
+.brand small {
+  margin-top: 3px;
+
+  font-size: 8px;
+  letter-spacing: 3px;
+
+  color: #777f81;
+}
+
+nav {
+  display: flex;
+  gap: 30px;
+}
+
+nav a {
+  color: #909899;
+
+  font-family: "Orbitron", sans-serif;
+  font-size: 10px;
+
+  letter-spacing: 2px;
+
+  text-decoration: none;
+
+  transition: .3s;
+}
+
+nav a:hover {
+  color: #fff;
+}
+
+.online {
+  display: flex;
+  align-items: center;
+
+  gap: 8px;
+
+  font-family: "Orbitron", sans-serif;
+  font-size: 9px;
+
+  letter-spacing: 2px;
+
+  color: #798183;
+}
+
+.online span,
+.system-status span,
+.network-status span {
+  display: inline-block;
+
+  width: 6px;
+  height: 6px;
+
+  border-radius: 50%;
+
+  background: #cfd5d4;
+
+  box-shadow: 0 0 8px rgba(220,230,230,.5);
+}
+
+
+/* ==================================================
+   HERO
+================================================== */
+
+.hero {
+  position: relative;
+
+  min-height: calc(100vh - 75px);
+
+  display: flex;
+  align-items: center;
+
+  padding: 8%;
+
+  background:
+    radial-gradient(
+      circle at 70% 40%,
+      rgba(255,255,255,.035),
+      transparent 35%
+    ),
+    rgba(8,10,11,.72);
+}
+
+.hero-content {
+  max-width: 850px;
+}
+
+.eyebrow {
+  margin-bottom: 25px;
+
+  font-family: "Orbitron", sans-serif;
+  font-size: 11px;
+
+  letter-spacing: 4px;
+
+  color: #747d7f;
+}
+
+.hero h1 {
+  font-family: "Orbitron", sans-serif;
+  font-size: clamp(65px, 10vw, 150px);
+
+  line-height: .85;
+
+  letter-spacing: -4px;
+}
+
+.hero h1 span {
+  color: #7f898b;
+}
+
+.hero-text {
+  max-width: 550px;
+
+  margin-top: 35px;
+
+  font-family: "Orbitron", sans-serif;
+  font-size: 11px;
+
+  line-height: 1.8;
+
+  letter-spacing: 3px;
+
+  color: #858d8f;
+}
+
+.hero-buttons {
+  display: flex;
+  gap: 15px;
+
+  margin-top: 40px;
+
+  flex-wrap: wrap;
+}
+
+.btn {
+  display: inline-block;
+
+  padding: 15px 25px;
+
+  border: 1px solid #4d5658;
+
+  background: transparent;
+
+  color: #dce1e0;
+
+  font-family: "Orbitron", sans-serif;
+  font-size: 10px;
+
+  letter-spacing: 2px;
+
+  text-decoration: none;
+
+  cursor: pointer;
+
+  transition: .3s;
+}
+
+.btn:hover,
+.btn.primary {
+  background: #dce1e0;
+  color: #080a0b;
+}
+
+.coordinates {
+  position: absolute;
+
+  right: 5%;
+  bottom: 40px;
+
+  font-family: "Orbitron", sans-serif;
+  font-size: 9px;
+
+  line-height: 1.8;
+
+  letter-spacing: 2px;
+
+  color: #51595b;
+}
+
+.hero-status {
+  position: absolute;
+
+  top: 50%;
+  right: 5%;
+
+  font-family: "Orbitron", sans-serif;
+  font-size: 9px;
+
+  line-height: 2;
+
+  letter-spacing: 2px;
+
+  color: #596163;
+}
+
+.hero-status b {
+  color: #b4bbba;
+}
+
+
+/* ==================================================
+   SECCIONES
+================================================== */
+
+.section {
+  position: relative;
+
+  padding: 110px 7%;
+
+  background: rgba(8,10,11,.72);
+
+  border-top: 1px solid rgba(255,255,255,.04);
+}
+
+.section.dark {
+  background: rgba(5,7,7,.72);
+}
+
+.section-head {
+  margin-bottom: 55px;
+}
+
+.section-head p {
+  margin-bottom: 10px;
+
+  font-family: "Orbitron", sans-serif;
+  font-size: 9px;
+
+  letter-spacing: 3px;
+
+  color: #687173;
+}
+
+.section-head h2 {
+  font-family: "Orbitron", sans-serif;
+  font-size: clamp(35px, 5vw, 65px);
+
+  letter-spacing: 3px;
+}
+
+
+/* ==================================================
+   OPERACIONES
+================================================== */
+
+.cards {
+  display: grid;
+
+  grid-template-columns:
+    repeat(3, 1fr);
+
+  gap: 20px;
+}
+
+.card {
+  padding: 30px;
+
+  min-height: 280px;
+
+  border: 1px solid rgba(255,255,255,.08);
+
+  background: rgba(10,13,14,.88);
+
+  transition: .3s;
+}
+
+.card:hover {
+  border-color: rgba(255,255,255,.25);
+
+  transform: translateY(-5px);
+}
+
+.card > span {
+  font-family: "Orbitron", sans-serif;
+  font-size: 9px;
+
+  letter-spacing: 2px;
+
+  color: #626b6d;
+}
+
+.card h3 {
+  margin: 25px 0 15px;
+
+  font-family: "Orbitron", sans-serif;
+  font-size: 22px;
+
+  letter-spacing: 2px;
+}
+
+.card p {
+  color: #8b9395;
+
+  line-height: 1.7;
+
+  font-size: 14px;
+}
+
+.card-line {
+  display: flex;
+  justify-content: space-between;
+
+  margin-top: 35px;
+
+  padding-top: 15px;
+
+  border-top: 1px solid rgba(255,255,255,.08);
+
+  font-family: "Orbitron", sans-serif;
+  font-size: 9px;
+
+  letter-spacing: 2px;
+}
+
+.card-line b {
+  color: #656d6f;
+}
+
+.card-line em {
+  color: #b8c0bf;
+
+  font-style: normal;
+}
+
+
+/* ==================================================
+   OPERADORES
+================================================== */
+
+.operator-grid {
+  display: grid;
+
+  grid-template-columns:
+    repeat(4, 1fr);
+
+  gap: 20px;
+}
+
+.operator {
+  padding: 30px;
+
+  text-align: center;
+
+  background: rgba(8,10,11,.82);
+
+  border: 1px solid rgba(255,255,255,.07);
+
+  transition: .3s;
+}
+
+.operator:hover {
+  border-color: rgba(255,255,255,.2);
+}
+
+.avatar {
+  width: 100px;
+  height: 100px;
+
+  margin: 0 auto 20px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background: rgba(11,14,15,.9);
+
+  border: 1px solid #454d4f;
+
+  font-family: "Orbitron", sans-serif;
+  font-size: 20px;
+
+  color: #777f81;
+}
+
+.operator h3 {
+  font-family: "Orbitron", sans-serif;
+  font-size: 16px;
+
+  letter-spacing: 3px;
+}
+
+.operator p {
+  margin-top: 8px;
+
+  font-family: "Orbitron", sans-serif;
+  font-size: 8px;
+
+  letter-spacing: 2px;
+
+  color: #697173;
+}
+
+
+/* ==================================================
+   SISTEMAS
+================================================== */
+
+.systems-section {
+  background:
+    linear-gradient(
+      rgba(8,10,11,.78),
+      rgba(8,10,11,.78)
+    );
+}
+
+.systems-grid {
+  display: grid;
+
+  grid-template-columns:
+    repeat(2, 1fr);
+
+  gap: 20px;
+}
+
+.system-card {
+  display: flex;
+  flex-direction: column;
+
+  min-height: 360px;
+
+  border: 1px solid rgba(255,255,255,.09);
+
+  background:
+    linear-gradient(
+      145deg,
+      rgba(15,18,19,.95),
+      rgba(7,9,10,.94)
+    );
+
+  transition: .35s;
+}
+
+.system-card:hover {
+  border-color: rgba(255,255,255,.25);
+
+  transform: translateY(-4px);
+}
+
+.system-card-top {
+  display: flex;
+  justify-content: space-between;
+
+  padding: 15px 20px;
+
+  border-bottom: 1px solid rgba(255,255,255,.07);
+
+  font-family: "Orbitron", sans-serif;
+  font-size: 8px;
+
+  letter-spacing: 2px;
+
+  color: #687173;
+}
+
+.system-card-content {
+  flex: 1;
+
+  padding: 40px;
+}
+
+.system-icon {
+  width: 55px;
+  height: 55px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  margin-bottom: 25px;
+
+  border: 1px solid #4a5254;
+
+  font-family: "Orbitron", sans-serif;
+  font-size: 10px;
+
+  color: #8d9697;
+}
+
+.system-card h3 {
+  font-family: "Orbitron", sans-serif;
+  font-size: 25px;
+
+  letter-spacing: 3px;
+}
+
+.system-card p {
+  margin-top: 12px;
+
+  color: #777f81;
+
+  font-size: 13px;
+
+  line-height: 1.6;
+}
+
+.system-status {
+  display: flex;
+  align-items: center;
+
+  gap: 10px;
+
+  margin-top: 30px;
+
+  font-family: "Orbitron", sans-serif;
+  font-size: 8px;
+
+  letter-spacing: 2px;
+
+  color: #70797a;
+}
+
+.system-button {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  width: 100%;
+
+  padding: 18px 25px;
+
+  border: 0;
+  border-top: 1px solid rgba(255,255,255,.08);
+
+  background: rgba(255,255,255,.025);
+
+  color: #c8cecd;
+
+  font-family: "Orbitron", sans-serif;
+  font-size: 9px;
+
+  letter-spacing: 2px;
+
+  text-decoration: none;
+
+  cursor: pointer;
+
+  transition: .3s;
+}
+
+.system-button:hover {
+  background: #dce1e0;
+  color: #080a0b;
+}
+
+.system-button span {
+  font-size: 18px;
+}
+
+
+/* ==================================================
+   INTELIGENCIA
+================================================== */
+
+.intel {
+  background: rgba(6,8,8,.76);
+}
+
+.terminal {
+  width: 100%;
+
+  padding: 0;
+
+  border: 1px solid rgba(255,255,255,.1);
+
+  background: rgba(2,3,3,.92);
+
+  overflow: hidden;
+}
+
+.terminal-top {
+  padding: 15px 20px;
+
+  border-bottom: 1px solid rgba(255,255,255,.08);
+
+  font-family: "Orbitron", sans-serif;
+  font-size: 9px;
+
+  letter-spacing: 2px;
+
+  color: #666f71;
+}
+
+.terminal pre {
+  min-height: 350px;
+
+  padding: 30px;
+
+  font-family: "Courier New", monospace;
+  font-size: 13px;
+
+  line-height: 1.8;
+
+  white-space: pre-wrap;
+
+  color: #aeb6b5;
+}
+
+
+/* ==================================================
+   FOOTER
+================================================== */
+
+footer {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+
+  padding: 30px 7%;
+
+  background: rgba(5,7,7,.82);
+
+  border-top: 1px solid rgba(255,255,255,.08);
+
+  font-family: "Orbitron", sans-serif;
+  font-size: 8px;
+
+  letter-spacing: 2px;
+
+  color: #596163;
+}
+
+
+/* ==================================================
+   REGISTRO DE OPERADOR
+================================================== */
+
+.registration-overlay {
+  position: fixed;
+  inset: 0;
+
+  z-index: 5000;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 20px;
+
+  background: rgba(0,0,0,.82);
+
+  backdrop-filter: blur(8px);
+
+  opacity: 0;
+  visibility: hidden;
+
+  transition: .35s;
+}
+
+.registration-overlay.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+.registration-box {
+  position: relative;
+
+  width: min(850px, 95vw);
+
+  min-height: 420px;
+
+  border: 1px solid rgba(255,255,255,.15);
+
+  background:
+    linear-gradient(
+      145deg,
+      #0b0e0f,
+      #050707
+    );
+
+  box-shadow:
+    0 30px 100px rgba(0,0,0,.7);
+
+  display: none;
+}
+
+.registration-box.active {
+  display: block;
+}
+
+.registration-box-1,
+.registration-box-2 {
+  width: min(600px, 95vw);
+
+  min-height: auto;
+}
+
+.registration-inner {
+  padding: 55px;
+}
+
+.registration-code {
+  margin-bottom: 20px;
+
+  font-family: "Orbitron", sans-serif;
+  font-size: 9px;
+
+  letter-spacing: 3px;
+
+  color: #697274;
+}
+
+.registration-inner h2 {
+  font-family: "Orbitron", sans-serif;
+  font-size: 42px;
+
+  letter-spacing: 4px;
+}
+
+.registration-inner p {
+  max-width: 500px;
+
+  margin: 20px 0 30px;
+
+  color: #80888a;
+
+  line-height: 1.7;
+}
+
+.registration-inner label {
+  display: block;
+
+  margin-bottom: 10px;
+
+  font-family: "Orbitron", sans-serif;
+  font-size: 9px;
+
+  letter-spacing: 2px;
+
+  color: #899193;
+}
+
+.registration-inner input {
+  width: 100%;
+
+  padding: 15px;
+
+  border: 1px solid #41494b;
+
+  outline: none;
+
+  background: #080a0b;
+
+  color: #e8eceb;
+
+  font-family: Arial, sans-serif;
+
+  transition: .3s;
+}
+
+.registration-inner input:focus {
+  border-color: #aeb6b5;
+}
+
+.continue-button {
+  margin-top: 20px;
+
+  padding: 15px 30px;
+
+  border: 1px solid #60696b;
+
+  background: transparent;
+
+  color: #dce1e0;
+
+  font-family: "Orbitron", sans-serif;
+  font-size: 10px;
+
+  letter-spacing: 2px;
+
+  cursor: pointer;
+
+  transition: .3s;
+}
+
+.continue-button:hover {
+  background: #dce1e0;
+  color: #080a0b;
+}
+
+.close-registration {
+  position: absolute;
+
+  top: 15px;
+  right: 18px;
+
+  z-index: 5;
+
+  width: 35px;
+  height: 35px;
+
+  border: 1px solid rgba(255,255,255,.15);
+
+  background: transparent;
+
+  color: #899193;
+
+  font-size: 24px;
+
+  cursor: pointer;
+
+  transition: .3s;
+}
+
+.close-registration:hover {
+  border-color: #fff;
+  color: #fff;
+}
+
+
+/* ==================================================
+   REGISTRANDO
+================================================== */
+
+.loading-content {
+  min-height: 420px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  text-align: center;
+}
+
+.loading-small {
+  margin-bottom: 20px;
+
+  font-family: "Orbitron", sans-serif;
+  font-size: 9px;
+
+  letter-spacing: 4px;
+
+  color: #626b6d;
+}
+
+.loading-title {
+  font-family: "Orbitron", sans-serif;
+  font-size: 45px;
+
+  letter-spacing: 7px;
+}
+
+.loading-dots {
+  display: flex;
+  gap: 8px;
+
+  margin-top: 25px;
+}
+
+.loading-dots span {
+  width: 7px;
+  height: 7px;
+
+  background: #cbd1d0;
+
+  animation: loadingDot 1s infinite;
+}
+
+.loading-dots span:nth-child(2) {
+  animation-delay: .15s;
+}
+
+.loading-dots span:nth-child(3) {
+  animation-delay: .3s;
+}
+
+@keyframes loadingDot {
+  0%,
+  100% {
+    opacity: .2;
+  }
+
+  50% {
+    opacity: 1;
+  }
+}
+
+.loading-line {
+  width: 300px;
+  max-width: 80%;
+
+  height: 2px;
+
+  margin-top: 35px;
+
+  background: #24292a;
+
+  overflow: hidden;
+}
+
+.loading-line span {
+  display: block;
+
+  width: 40%;
+  height: 100%;
+
+  background: #d8dddd;
+
+  animation: loadingLine 1.3s infinite ease-in-out;
+}
+
+@keyframes loadingLine {
+  0% {
+    transform: translateX(-120%);
+  }
+
+  100% {
+    transform: translateX(350%);
+  }
+}
+
+.loading-status {
+  margin-top: 25px;
+
+  font-family: "Orbitron", sans-serif;
+  font-size: 8px;
+
+  letter-spacing: 2px;
+
+  color: #6f787a;
+}
+
+
+/* ==================================================
+   OPERADOR REGISTRADO
+================================================== */
+
+.registration-box-3 {
+  display: none;
+
+  grid-template-columns: 1fr 1fr;
+
+  overflow: hidden;
+}
+
+.registration-box-3.active {
+  display: grid;
+}
+
+.registered-message {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  padding: 50px;
+}
+
+.registered-message h2 {
+  font-family: "Orbitron", sans-serif;
+  font-size: 42px;
+
+  line-height: 1.05;
+
+  letter-spacing: 3px;
+}
+
+.white-line {
+  width: 80px;
+  height: 2px;
+
+  margin: 25px 0;
+  background: #e8eceb;
+}
+
+.registered-message p {
+  color: #858d8f;
+
+  font-size: 13px;
+}
+
+.registered-message h3 {
+  margin-top: 25px;
+
+  font-family: "Orbitron", sans-serif;
+  font-size: 17px;
+
+  line-height: 1.5;
+
+  letter-spacing: 2px;
+}
+
+.network-status {
+  display: flex;
+  align-items: center;
+
+  gap: 10px;
+
+  margin-top: 35px;
+
+  font-family: "Orbitron", sans-serif;
+  font-size: 8px;
+
+  letter-spacing: 2px;
+
+  color: #747d7f;
+}
+
+.registered-video {
+  min-height: 420px;
+
+  background: #000;
+
+  overflow: hidden;
+}
+
+.registered-video video {
+  width: 100%;
+  height: 100%;
+
+  display: block;
+
+  object-fit: cover;
+}
+
+
+/* ==================================================
+   RESPONSIVE
+================================================== */
+
+@media (max-width: 1000px) {
+
+  nav {
+    gap: 15px;
+  }
+
+  .online {
+    display: none;
+  }
+
+  .cards {
+    grid-template-columns: 1fr;
+  }
+
+  .operator-grid {
+    grid-template-columns:
+      repeat(2, 1fr);
+  }
+
+}
+
+
+@media (max-width: 700px) {
+
+  header {
+    padding: 0 20px;
+  }
+
+  nav {
+    display: none;
+  }
+
+  .hero {
+    padding: 80px 25px;
+  }
+
+  .hero h1 {
+    font-size: 60px;
+  }
+
+  .coordinates,
+  .hero-status {
+    display: none;
+  }
+
+  .section {
+    padding: 80px 25px;
+  }
+
+  .systems-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .operator-grid {
+    grid-template-columns: 1fr;
+  }
+
+  footer {
+    flex-direction: column;
+  }
+
+  .registration-inner {
+    padding: 40px 25px;
+  }
+
+  .registration-box-3 {
+    grid-template-columns: 1fr;
+  }
+
+  .registered-video {
+    min-height: 250px;
+    order: -1;
+  }
+
+  .registered-message {
+    padding: 35px 25px;
+  }
+
+  .registered-message h2 {
+    font-size: 32px;
+  }
+
+  .loading-title {
+    font-size: 32px;
+  }
+
+}
